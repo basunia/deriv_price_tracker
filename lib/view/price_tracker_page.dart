@@ -2,6 +2,7 @@ import 'package:deriv_api/deriv_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:price_tracker/cubit/price_bloc.dart';
+import 'package:price_tracker/cubit/price_event.dart';
 import 'package:price_tracker/widget.dart/drop_down_widget.dart';
 
 class PriceTrackerPage extends StatefulWidget {
@@ -61,11 +62,21 @@ class _PriceTrackerPageState extends State<PriceTrackerPage> {
                       ? DropDownWidget(
                           onValueChanged: (value) {
                             setState(() {});
+                            if (symbolList.first == value) return;
+                            context
+                                .read<PriceCubit>()
+                                .add(PriceFetched(value!));
                           },
                           title: 'Select an Asset',
                           items: symbolList,
                         )
-                      : const SizedBox.shrink()
+                      : const SizedBox.shrink(),
+                  const SizedBox(
+                    height: 20.0,
+                  ),
+                  state.price != null
+                      ? Text('Price ${state.price?.quote}')
+                      : const SizedBox.shrink(),
                 ],
               );
           }

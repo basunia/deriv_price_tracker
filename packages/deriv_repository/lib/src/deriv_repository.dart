@@ -7,7 +7,14 @@ class PriceTrackerRepostory {
 
   final PriceTrackerApi _priceTrackerApi;
 
-  Stream<List<Market>> getMarketSymbol() => _priceTrackerApi.getMarketSymbol();
+  Stream<List<Market>> getMarketSymbol() {
+    final result = _priceTrackerApi.getMarketSymbol();
+
+    return result;
+  }
+
+  void cancelMarketSubscription() =>
+      _priceTrackerApi.cancelMarketSubscription();
 
   Stream<Price> getPrice({required String marketSymbol}) =>
       _priceTrackerApi.getPrice(marketSymbol: marketSymbol);

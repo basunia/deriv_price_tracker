@@ -23,6 +23,7 @@ mixin _$Price {
   double get ask => throw _privateConstructorUsedError;
   double get bid => throw _privateConstructorUsedError;
   double get epoch => throw _privateConstructorUsedError;
+  double get quote => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
   String get symbol => throw _privateConstructorUsedError;
 
@@ -35,7 +36,13 @@ mixin _$Price {
 abstract class $PriceCopyWith<$Res> {
   factory $PriceCopyWith(Price value, $Res Function(Price) then) =
       _$PriceCopyWithImpl<$Res>;
-  $Res call({double ask, double bid, double epoch, String id, String symbol});
+  $Res call(
+      {double ask,
+      double bid,
+      double epoch,
+      double quote,
+      String id,
+      String symbol});
 }
 
 /// @nodoc
@@ -51,6 +58,7 @@ class _$PriceCopyWithImpl<$Res> implements $PriceCopyWith<$Res> {
     Object? ask = freezed,
     Object? bid = freezed,
     Object? epoch = freezed,
+    Object? quote = freezed,
     Object? id = freezed,
     Object? symbol = freezed,
   }) {
@@ -66,6 +74,10 @@ class _$PriceCopyWithImpl<$Res> implements $PriceCopyWith<$Res> {
       epoch: epoch == freezed
           ? _value.epoch
           : epoch // ignore: cast_nullable_to_non_nullable
+              as double,
+      quote: quote == freezed
+          ? _value.quote
+          : quote // ignore: cast_nullable_to_non_nullable
               as double,
       id: id == freezed
           ? _value.id
@@ -84,7 +96,13 @@ abstract class _$$_PriceCopyWith<$Res> implements $PriceCopyWith<$Res> {
   factory _$$_PriceCopyWith(_$_Price value, $Res Function(_$_Price) then) =
       __$$_PriceCopyWithImpl<$Res>;
   @override
-  $Res call({double ask, double bid, double epoch, String id, String symbol});
+  $Res call(
+      {double ask,
+      double bid,
+      double epoch,
+      double quote,
+      String id,
+      String symbol});
 }
 
 /// @nodoc
@@ -101,6 +119,7 @@ class __$$_PriceCopyWithImpl<$Res> extends _$PriceCopyWithImpl<$Res>
     Object? ask = freezed,
     Object? bid = freezed,
     Object? epoch = freezed,
+    Object? quote = freezed,
     Object? id = freezed,
     Object? symbol = freezed,
   }) {
@@ -116,6 +135,10 @@ class __$$_PriceCopyWithImpl<$Res> extends _$PriceCopyWithImpl<$Res>
       epoch: epoch == freezed
           ? _value.epoch
           : epoch // ignore: cast_nullable_to_non_nullable
+              as double,
+      quote: quote == freezed
+          ? _value.quote
+          : quote // ignore: cast_nullable_to_non_nullable
               as double,
       id: id == freezed
           ? _value.id
@@ -136,6 +159,7 @@ class _$_Price implements _Price {
       {required this.ask,
       required this.bid,
       required this.epoch,
+      required this.quote,
       required this.id,
       required this.symbol});
 
@@ -149,13 +173,15 @@ class _$_Price implements _Price {
   @override
   final double epoch;
   @override
+  final double quote;
+  @override
   final String id;
   @override
   final String symbol;
 
   @override
   String toString() {
-    return 'Price(ask: $ask, bid: $bid, epoch: $epoch, id: $id, symbol: $symbol)';
+    return 'Price(ask: $ask, bid: $bid, epoch: $epoch, quote: $quote, id: $id, symbol: $symbol)';
   }
 
   @override
@@ -166,6 +192,7 @@ class _$_Price implements _Price {
             const DeepCollectionEquality().equals(other.ask, ask) &&
             const DeepCollectionEquality().equals(other.bid, bid) &&
             const DeepCollectionEquality().equals(other.epoch, epoch) &&
+            const DeepCollectionEquality().equals(other.quote, quote) &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.symbol, symbol));
   }
@@ -177,6 +204,7 @@ class _$_Price implements _Price {
       const DeepCollectionEquality().hash(ask),
       const DeepCollectionEquality().hash(bid),
       const DeepCollectionEquality().hash(epoch),
+      const DeepCollectionEquality().hash(quote),
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(symbol));
 
@@ -198,6 +226,7 @@ abstract class _Price implements Price {
       {required final double ask,
       required final double bid,
       required final double epoch,
+      required final double quote,
       required final String id,
       required final String symbol}) = _$_Price;
 
@@ -209,6 +238,8 @@ abstract class _Price implements Price {
   double get bid;
   @override
   double get epoch;
+  @override
+  double get quote;
   @override
   String get id;
   @override

@@ -9,6 +9,7 @@ class Price with _$Price {
     required double ask,
     required double bid,
     required double epoch,
+    required double quote,
     required String id,
     required String symbol,
   }) = _Price;

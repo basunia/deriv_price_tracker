@@ -23,19 +23,28 @@ class DomainNotFoundFailure implements Exception {
 
 class DerivApiClient implements PriceTrackerApi {
   DerivApiClient({WebSocketChannel? socketChannel})
-      : _socketChannel = socketChannel ?? webSocketChannel;
+      : _socketChannel = socketChannel ?? webSocketChannel {
+    _broadCastStream = _socketChannel.stream.asBroadcastStream();
+  }
 
   final WebSocketChannel _socketChannel;
+  Stream? _broadCastStream;
+  StreamSubscription? _marketSubscription;
+
+  @override
+  void cancelMarketSubscription() {
+    _marketSubscription?.cancel();
+  }
 
   @override
   Stream<List<Market>> getMarketSymbol() {
     debugPrint('onGetMarketSymbol');
+    final marketStreamController = StreamController<List<Market>>();
     try {
-      final marketStreamController = StreamController<List<Market>>();
       _socketChannel.sink.add(
           jsonEncode({"active_symbols": "brief", "product_type": "basic"}));
 
-      _socketChannel.stream.listen((event) {
+      _marketSubscription = _broadCastStream?.listen((event) {
         List<Market> marketList = jsonDecode(event)['active_symbols']
             .map<Market>((e) => Market.fromJson(e))
             .toList();
@@ -45,10 +54,12 @@ class DerivApiClient implements PriceTrackerApi {
         debugPrint(
             'size===================> ${marketList.length}, ${marketList.first.displayName}');
       });
+
       return marketStreamController.stream;
     } catch (e) {
       debugPrint(e.toString());
-      rethrow;
+      // rethrow;
+      return marketStreamController.stream;
     }
   }
 
@@ -60,15 +71,12 @@ class DerivApiClient implements PriceTrackerApi {
       _socketChannel.sink
           .add(jsonEncode({"ticks": marketSymbol, "subscribe": 1}));
 
-      _socketChannel.stream.listen((event) {
+      _broadCastStream?.listen((event) {
         Price price = Price.fromJson(jsonDecode(event)['tick']);
 
         priceStreamController.add(price);
 
         debugPrint('price===================> $price, ${price.symbol}');
-
-        //TODO: error handling
-        // _socketChannel.sink.add(jsonEncode({"forget_all": "ticks"}));
       });
       return priceStreamController.stream;
     } catch (e) {
