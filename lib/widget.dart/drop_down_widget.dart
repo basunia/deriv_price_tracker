@@ -33,13 +33,13 @@ class _DropDownWidgetState extends State<DropDownWidget> {
             child: Text(value),
           );
         }).toList(),
-        onChanged: widget.onValueChanged,
-        // onChanged: (value) {
-        //   setState(() {
-        //     dropdownvalue = value;
-        //   });
-
-        // },
+        // onChanged: widget.onValueChanged,
+        onChanged: (value) {
+          setState(() {
+            dropdownvalue = value;
+          });
+          widget.onValueChanged?.call(value);
+        },
       ),
     );
     // return DropdownButtonHideUnderline(

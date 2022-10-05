@@ -29,7 +29,9 @@ class _PriceTrackerPageState extends State<PriceTrackerPage> {
             case PriceStatus.success:
             default:
               final marketList =
-                  state.markets.map((e) => e.displayName).toList();
+                  state.markets.map((e) => e.market).toSet().toList();
+
+              // final marketList = state.markets.map((e) => e.market).toList();
 
               // final symbolList = state.markets.map((e) => e.symbol).toList();
               // final symbolList = state.markets.where((element) => element.symbol == ,)
@@ -46,7 +48,7 @@ class _PriceTrackerPageState extends State<PriceTrackerPage> {
                       onValueChanged: (value) {
                         setState(() {
                           symbolList = getSymbols(state.markets,
-                              value ?? state.markets.first.displayName);
+                              value ?? state.markets.first.market);
                         });
                       },
                       title: 'Select a Market',
@@ -56,7 +58,9 @@ class _PriceTrackerPageState extends State<PriceTrackerPage> {
                   ),
                   symbolList.isNotEmpty
                       ? DropDownWidget(
-                          onValueChanged: (value) {},
+                          onValueChanged: (value) {
+                            setState(() {});
+                          },
                           title: 'Select an Asset',
                           items: symbolList,
                         )
@@ -71,7 +75,7 @@ class _PriceTrackerPageState extends State<PriceTrackerPage> {
 
   List<String> getSymbols(List<Market> markets, String disPlayName) {
     return markets
-        .where((element) => element.displayName == disPlayName)
+        .where((element) => element.market == disPlayName)
         .toList()
         .map<String>((e) => e.symbol)
         .toList();
