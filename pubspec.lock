@@ -8,6 +8,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.8.2"
+  bloc:
+    dependency: "direct main"
+    description:
+      name: bloc
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "8.1.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -58,12 +65,26 @@ packages:
     source: hosted
     version: "1.0.5"
   deriv_api:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       path: "packages/deriv_api"
       relative: true
     source: path
     version: "0.0.1"
+  deriv_repository:
+    dependency: "direct main"
+    description:
+      path: "packages/deriv_repository"
+      relative: true
+    source: path
+    version: "0.0.1"
+  equatable:
+    dependency: "direct main"
+    description:
+      name: equatable
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.5"
   fake_async:
     dependency: transitive
     description:
@@ -137,6 +158,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.1"
+  price_tracker_api:
+    dependency: transitive
+    description:
+      path: "packages/price_tracker_api"
+      relative: true
+    source: path
+    version: "0.0.1"
   sky_engine:
     dependency: transitive
     description: flutter

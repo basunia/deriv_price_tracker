@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:price_tracker/apI_service.dart';
+import 'package:price_tracker/app.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:deriv_api/deriv_api.dart';
 
@@ -11,22 +12,7 @@ void main() {
 
   api.getPrice(marketSymbol: 'frxAUDCAD');
 
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    const title = 'WebSocket Demo';
-    return const MaterialApp(
-      title: title,
-      home: MyHomePage(
-        title: title,
-      ),
-    );
-  }
+  runApp(const PriceTrackerApp());
 }
 
 class MyHomePage extends StatefulWidget {
