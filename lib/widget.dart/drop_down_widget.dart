@@ -22,24 +22,26 @@ class _DropDownWidgetState extends State<DropDownWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(18.0),
-      child: DropdownButton<String>(
-        value: dropdownvalue ?? widget.items.first,
-        // hint: Text(widget.title ?? 'Select an item'),
-        items: widget.items.map((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value),
-          );
-        }).toList(),
-        // onChanged: widget.onValueChanged,
-        onChanged: (value) {
-          setState(() {
-            dropdownvalue = value;
-          });
-          widget.onValueChanged?.call(value);
-        },
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(18.0),
+        child: DropdownButton<String>(
+          value: dropdownvalue ?? widget.items.first,
+          // hint: Text(widget.title ?? 'Select an item'),
+          items: widget.items.map((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+          // onChanged: widget.onValueChanged,
+          onChanged: (value) {
+            setState(() {
+              dropdownvalue = value;
+            });
+            widget.onValueChanged?.call(value);
+          },
+        ),
       ),
     );
     // return DropdownButtonHideUnderline(

@@ -28,8 +28,9 @@ class _PriceTrackerPageState extends State<PriceTrackerPage> {
               return const Center(child: CircularProgressIndicator());
             case PriceStatus.success:
             default:
-              final marketList =
+              final markets =
                   state.markets.map((e) => e.market).toSet().toList();
+              final marketList = ['Select a Market', ...markets];
 
               // final marketList = state.markets.map((e) => e.market).toList();
 
@@ -74,10 +75,13 @@ class _PriceTrackerPageState extends State<PriceTrackerPage> {
   }
 
   List<String> getSymbols(List<Market> markets, String disPlayName) {
-    return markets
-        .where((element) => element.market == disPlayName)
-        .toList()
-        .map<String>((e) => e.symbol)
-        .toList();
+    return [
+      'Select an Asset',
+      ...markets
+          .where((element) => element.market == disPlayName)
+          .toList()
+          .map<String>((e) => e.symbol)
+          .toList()
+    ];
   }
 }
