@@ -19,9 +19,8 @@ class _PriceTrackerPageState extends State<PriceTrackerPage> {
     return Scaffold(
       appBar: AppBar(title: const Text('Price tracker')),
       body: BlocConsumer<PriceCubit, PriceState>(
-        listener: (context, state) {
-          // TODO: implement listener
-        },
+        listener: (context, state) {},
+        buildWhen: (prev, curr) => curr.fetchType.isMarketFetch,
         builder: (context, state) {
           switch (state.priceStatus) {
             case PriceStatus.initial:
@@ -74,9 +73,18 @@ class _PriceTrackerPageState extends State<PriceTrackerPage> {
                   const SizedBox(
                     height: 20.0,
                   ),
-                  state.price != null
-                      ? Text('Price ${state.price?.quote}')
+                  state.markets.isNotEmpty
+                      ? BlocBuilder<PriceCubit, PriceState>(
+                          builder: (context, state) {
+                            return state.price != null
+                                ? Text('Price ${state.price?.quote}')
+                                : const CircularProgressIndicator();
+                          },
+                        )
                       : const SizedBox.shrink(),
+                  // state.price != null
+                  //     ? Text('Price ${state.price?.quote}')
+                  //     : const SizedBox.shrink(),
                 ],
               );
           }
