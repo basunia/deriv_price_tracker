@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:deriv_api/src/base_clent.dart';
 import 'package:deriv_api/src/model/price.dart';
 import 'package:flutter/widgets.dart';
+import 'package:price_tracker_api/price_tracker_api.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 import 'model/market.dart';
@@ -20,12 +21,13 @@ class DomainNotFoundFailure implements Exception {
   String toString() => '$runtimeType';
 }
 
-class DerivApiClient {
+class DerivApiClient implements PriceTrackerApi {
   DerivApiClient({WebSocketChannel? socketChannel})
       : _socketChannel = socketChannel ?? webSocketChannel;
 
   final WebSocketChannel _socketChannel;
 
+  @override
   Stream<List<Market>> getMarketSymbol() {
     debugPrint('onGetMarketSymbol');
     try {
@@ -50,6 +52,7 @@ class DerivApiClient {
     }
   }
 
+  @override
   Stream<Price> getPrice({required String marketSymbol}) {
     debugPrint('ongetPrice');
     try {
