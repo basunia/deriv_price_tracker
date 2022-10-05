@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 enum ViewType { market, price }
 
 class DropDownWidget extends StatefulWidget {
-  DropDownWidget({required this.items, this.title, Key? key}) : super(key: key);
+  DropDownWidget(
+      {required this.onValueChanged, required this.items, this.title, Key? key})
+      : super(key: key);
 
   final String? title;
   final List<String> items;
+  final Function(String?)? onValueChanged;
 
   @override
   State<DropDownWidget> createState() => _DropDownWidgetState();
@@ -30,11 +33,13 @@ class _DropDownWidgetState extends State<DropDownWidget> {
             child: Text(value),
           );
         }).toList(),
-        onChanged: (value) {
-          setState(() {
-            dropdownvalue = value;
-          });
-        },
+        onChanged: widget.onValueChanged,
+        // onChanged: (value) {
+        //   setState(() {
+        //     dropdownvalue = value;
+        //   });
+
+        // },
       ),
     );
     // return DropdownButtonHideUnderline(
