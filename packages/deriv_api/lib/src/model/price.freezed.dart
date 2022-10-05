@@ -20,9 +20,9 @@ Price _$PriceFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Price {
-  String get ask => throw _privateConstructorUsedError;
-  String get bid => throw _privateConstructorUsedError;
-  String get epoch => throw _privateConstructorUsedError;
+  double get ask => throw _privateConstructorUsedError;
+  double get bid => throw _privateConstructorUsedError;
+  double get epoch => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
   String get symbol => throw _privateConstructorUsedError;
 
@@ -35,7 +35,7 @@ mixin _$Price {
 abstract class $PriceCopyWith<$Res> {
   factory $PriceCopyWith(Price value, $Res Function(Price) then) =
       _$PriceCopyWithImpl<$Res>;
-  $Res call({String ask, String bid, String epoch, String id, String symbol});
+  $Res call({double ask, double bid, double epoch, String id, String symbol});
 }
 
 /// @nodoc
@@ -58,15 +58,15 @@ class _$PriceCopyWithImpl<$Res> implements $PriceCopyWith<$Res> {
       ask: ask == freezed
           ? _value.ask
           : ask // ignore: cast_nullable_to_non_nullable
-              as String,
+              as double,
       bid: bid == freezed
           ? _value.bid
           : bid // ignore: cast_nullable_to_non_nullable
-              as String,
+              as double,
       epoch: epoch == freezed
           ? _value.epoch
           : epoch // ignore: cast_nullable_to_non_nullable
-              as String,
+              as double,
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -84,7 +84,7 @@ abstract class _$$_PriceCopyWith<$Res> implements $PriceCopyWith<$Res> {
   factory _$$_PriceCopyWith(_$_Price value, $Res Function(_$_Price) then) =
       __$$_PriceCopyWithImpl<$Res>;
   @override
-  $Res call({String ask, String bid, String epoch, String id, String symbol});
+  $Res call({double ask, double bid, double epoch, String id, String symbol});
 }
 
 /// @nodoc
@@ -108,15 +108,15 @@ class __$$_PriceCopyWithImpl<$Res> extends _$PriceCopyWithImpl<$Res>
       ask: ask == freezed
           ? _value.ask
           : ask // ignore: cast_nullable_to_non_nullable
-              as String,
+              as double,
       bid: bid == freezed
           ? _value.bid
           : bid // ignore: cast_nullable_to_non_nullable
-              as String,
+              as double,
       epoch: epoch == freezed
           ? _value.epoch
           : epoch // ignore: cast_nullable_to_non_nullable
-              as String,
+              as double,
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -143,11 +143,11 @@ class _$_Price implements _Price {
       _$$_PriceFromJson(json);
 
   @override
-  final String ask;
+  final double ask;
   @override
-  final String bid;
+  final double bid;
   @override
-  final String epoch;
+  final double epoch;
   @override
   final String id;
   @override
@@ -195,20 +195,20 @@ class _$_Price implements _Price {
 
 abstract class _Price implements Price {
   const factory _Price(
-      {required final String ask,
-      required final String bid,
-      required final String epoch,
+      {required final double ask,
+      required final double bid,
+      required final double epoch,
       required final String id,
       required final String symbol}) = _$_Price;
 
   factory _Price.fromJson(Map<String, dynamic> json) = _$_Price.fromJson;
 
   @override
-  String get ask;
+  double get ask;
   @override
-  String get bid;
+  double get bid;
   @override
-  String get epoch;
+  double get epoch;
   @override
   String get id;
   @override

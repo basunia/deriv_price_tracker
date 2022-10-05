@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:deriv_api/src/base_clent.dart';
+import 'package:deriv_api/src/model/price.dart';
 import 'package:flutter/widgets.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -28,23 +29,45 @@ class DerivApiClient {
   Stream<List<Market>> getMarketSymbol() {
     debugPrint('onGetMarketSymbol');
     try {
-      final streamController = StreamController<List<Market>>();
+      final marketStreamController = StreamController<List<Market>>();
       _socketChannel.sink.add(
           jsonEncode({"active_symbols": "brief", "product_type": "basic"}));
 
       _socketChannel.stream.listen((event) {
-        // debugPrint('result ===> ${event}');
-        // debugPrint('result ===> ${jsonDecode(event)['active_symbols']}');
         List<Market> marketList = jsonDecode(event)['active_symbols']
             .map<Market>((e) => Market.fromJson(e))
             .toList();
 
-        streamController.add(marketList);
+        marketStreamController.add(marketList);
 
         debugPrint(
             'size===================> ${marketList.length}, ${marketList.first.displayName}');
       });
-      return streamController.stream;
+      return marketStreamController.stream;
+    } catch (e) {
+      debugPrint(e.toString());
+      rethrow;
+    }
+  }
+
+  Stream<Price> getPrice({required String marketSymbol}) {
+    debugPrint('ongetPrice');
+    try {
+      final priceStreamController = StreamController<Price>();
+      _socketChannel.sink
+          .add(jsonEncode({"ticks": marketSymbol, "subscribe": 1}));
+
+      _socketChannel.stream.listen((event) {
+        Price price = Price.fromJson(jsonDecode(event)['tick']);
+
+        priceStreamController.add(price);
+
+        debugPrint('price===================> $price, ${price.symbol}');
+
+        //TODO: error handling
+        // _socketChannel.sink.add(jsonEncode({"forget_all": "ticks"}));
+      });
+      return priceStreamController.stream;
     } catch (e) {
       debugPrint(e.toString());
       rethrow;

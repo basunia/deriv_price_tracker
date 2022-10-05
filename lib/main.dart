@@ -7,7 +7,9 @@ import 'package:deriv_api/deriv_api.dart';
 
 void main() {
   final api = DerivApiClient(socketChannel: webSocketChannel);
-  api.getMarketSymbol();
+  // api.getMarketSymbol();
+
+  api.getPrice(marketSymbol: 'frxAUDCAD');
 
   runApp(const MyApp());
 }

@@ -6,9 +6,9 @@ part 'price.g.dart';
 @freezed
 class Price with _$Price {
   const factory Price({
-    required String ask,
-    required String bid,
-    required String epoch,
+    required double ask,
+    required double bid,
+    required double epoch,
     required String id,
     required String symbol,
   }) = _Price;

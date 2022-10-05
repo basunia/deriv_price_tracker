@@ -7,9 +7,9 @@ part of 'price.dart';
 // **************************************************************************
 
 _$_Price _$$_PriceFromJson(Map<String, dynamic> json) => _$_Price(
-      ask: json['ask'] as String,
-      bid: json['bid'] as String,
-      epoch: json['epoch'] as String,
+      ask: (json['ask'] as num).toDouble(),
+      bid: (json['bid'] as num).toDouble(),
+      epoch: (json['epoch'] as num).toDouble(),
       id: json['id'] as String,
       symbol: json['symbol'] as String,
     );
