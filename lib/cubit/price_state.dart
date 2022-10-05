@@ -1,4 +1,4 @@
-part of 'price_cubit.dart';
+part of 'price_bloc.dart';
 
 enum PriceStatus {
   initial,
@@ -20,12 +20,25 @@ extension PriceStatusX on PriceStatus {
 
 class PriceState extends Equatable {
   const PriceState(
-      {this.priceStatus = PriceStatus.initial, this.market, this.price});
+      {this.priceStatus = PriceStatus.initial,
+      this.markets = const [],
+      this.price});
 
   final PriceStatus priceStatus;
-  final Market? market;
+  final List<Market> markets;
   final Price? price;
 
+  PriceState copyWith({
+    PriceStatus? status,
+    List<Market>? markets,
+    Price? price,
+  }) {
+    return PriceState(
+        priceStatus: status ?? priceStatus,
+        markets: markets ?? this.markets,
+        price: price ?? this.price);
+  }
+
   @override
-  List<Object?> get props => [priceStatus, market, price];
+  List<Object?> get props => [priceStatus, markets, price];
 }

@@ -3,16 +3,21 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:price_tracker/apI_service.dart';
 import 'package:price_tracker/app.dart';
+import 'package:price_tracker/service_locator.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:deriv_api/deriv_api.dart';
 
 void main() {
-  final api = DerivApiClient(socketChannel: webSocketChannel);
-  // api.getMarketSymbol();
+  // final api = DerivApiClient(socketChannel: webSocketChannel);
+  // // api.getMarketSymbol();
 
-  api.getPrice(marketSymbol: 'frxAUDCAD');
+  // api.getPrice(marketSymbol: 'frxAUDCAD');
 
-  runApp(const PriceTrackerApp());
+  final service = ServiceLocator();
+
+  runApp(PriceTrackerApp(
+    repostory: service.repository,
+  ));
 }
 
 class MyHomePage extends StatefulWidget {
