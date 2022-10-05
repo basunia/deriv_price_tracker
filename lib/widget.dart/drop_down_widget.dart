@@ -14,22 +14,26 @@ class DropDownWidget extends StatefulWidget {
 }
 
 class _DropDownWidgetState extends State<DropDownWidget> {
-  String? selectedValue;
+  // Initial Selected Value
+  String? dropdownvalue;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(18.0),
       child: DropdownButton<String>(
-        hint: Text(widget.title ?? 'Select an item'),
+        value: dropdownvalue ?? widget.items.first,
+        // hint: Text(widget.title ?? 'Select an item'),
         items: widget.items.map((String value) {
           return DropdownMenuItem<String>(
             value: value,
             child: Text(value),
           );
         }).toList(),
-        onChanged: (_) {
-          setState(() {});
+        onChanged: (value) {
+          setState(() {
+            dropdownvalue = value;
+          });
         },
       ),
     );

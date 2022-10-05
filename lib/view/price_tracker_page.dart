@@ -16,6 +16,7 @@ class PriceTrackerPage extends StatelessWidget {
         },
         builder: (context, state) {
           switch (state.priceStatus) {
+            case PriceStatus.initial:
             case PriceStatus.loading:
               return const Center(child: CircularProgressIndicator());
             case PriceStatus.success:
