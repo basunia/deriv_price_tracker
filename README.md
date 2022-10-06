@@ -1,8 +1,10 @@
 # deriv_price_tracker
 
 A flutter app that show realtime market price from [deriv](https://deriv.com/) api service.
+
 ### Demo video
-<video src='ss/deriv_app_demo_video.mp4'/>
+https://user-images.githubusercontent.com/7519881/194369589-804c7380-b69f-4026-a2c1-2516c02a1225.mp4
+
 
 ### App Architecture summary
 - Used [Very Good Architecture](https://verygood.ventures/blog/very-good-flutter-architecture) for structuring the app.
