@@ -30,10 +30,16 @@ class DerivApiClient implements PriceTrackerApi {
   final WebSocketChannel _socketChannel;
   Stream? _broadCastStream;
   StreamSubscription? _marketSubscription;
+  StreamSubscription? _priceSubscription;
 
   @override
   void cancelMarketSubscription() {
     _marketSubscription?.cancel();
+  }
+
+  @override
+  void cancelPriceSubscription() {
+    _priceSubscription?.cancel();
   }
 
   @override
@@ -71,7 +77,7 @@ class DerivApiClient implements PriceTrackerApi {
       _socketChannel.sink
           .add(jsonEncode({"ticks": marketSymbol, "subscribe": 1}));
 
-      _broadCastStream?.listen((event) {
+      _priceSubscription = _broadCastStream?.listen((event) {
         Price price = Price.fromJson(jsonDecode(event)['tick']);
 
         priceStreamController.add(price);

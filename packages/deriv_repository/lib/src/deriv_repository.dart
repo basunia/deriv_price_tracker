@@ -15,6 +15,7 @@ class PriceTrackerRepostory {
 
   void cancelMarketSubscription() =>
       _priceTrackerApi.cancelMarketSubscription();
+  void cancelPriceSubscription() => _priceTrackerApi.cancelPriceSubscription();
 
   Stream<Price> getPrice({required String marketSymbol}) =>
       _priceTrackerApi.getPrice(marketSymbol: marketSymbol);

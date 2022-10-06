@@ -42,6 +42,8 @@ class PriceCubit extends Bloc<PriceEvent, PriceState> {
 
   void onPriceSubscritionRequested(
       PriceFetched event, Emitter<PriceState> emit) async {
+    // cancel previous subscription if any
+    _repository.cancelPriceSubscription();
     emit(state.copyWith(
         status: PriceStatus.loading, fetchType: FetchType.priceFetch));
     try {

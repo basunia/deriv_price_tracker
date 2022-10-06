@@ -5,5 +5,7 @@ abstract class PriceTrackerApi {
 
   void cancelMarketSubscription();
 
+  void cancelPriceSubscription();
+
   Stream<Price> getPrice({required String marketSymbol});
 }

@@ -73,15 +73,27 @@ class _PriceTrackerPageState extends State<PriceTrackerPage> {
                   const SizedBox(
                     height: 20.0,
                   ),
-                  state.markets.isNotEmpty
-                      ? BlocBuilder<PriceCubit, PriceState>(
-                          builder: (context, state) {
-                            return state.price != null
-                                ? Text('Price ${state.price?.quote}')
-                                : const CircularProgressIndicator();
-                          },
-                        )
-                      : const SizedBox.shrink(),
+
+                  BlocBuilder<PriceCubit, PriceState>(
+                    builder: (context, state) {
+                      // Widget widget;
+                      // if (state.fetchType.isMarketFetch) {
+                      //   widget = const SizedBox.shrink();
+                      // } else {
+                      //   if (state.price != null) {
+                      //     widget = Text('Price ${state.price?.quote}');
+                      //   } else {
+                      //     widget = const CircularProgressIndicator();
+                      //   }
+                      // }
+                      // return widget;
+                      return state.fetchType.isMarketFetch
+                          ? const SizedBox.shrink()
+                          : state.price != null
+                              ? Text('Price ${state.price?.quote}')
+                              : const CircularProgressIndicator();
+                    },
+                  ),
                   // state.price != null
                   //     ? Text('Price ${state.price?.quote}')
                   //     : const SizedBox.shrink(),
