@@ -24,7 +24,7 @@ class _DropDownWidgetState extends State<DropDownWidget> {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(18.0),
+        padding: const EdgeInsets.all(0.0),
         child: DropdownButton<String>(
           value: dropdownvalue ?? widget.items.first,
           // hint: Text(widget.title ?? 'Select an item'),

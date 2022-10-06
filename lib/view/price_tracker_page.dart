@@ -24,7 +24,7 @@ class _PriceTrackerPageState extends State<PriceTrackerPage> {
         buildWhen: (prev, curr) => curr.fetchType.isMarketFetch,
         builder: (context, state) {
           switch (state.priceStatus) {
-            case PriceStatus.initial:
+            // case PriceStatus.initial:
             case PriceStatus.loading:
               return const Center(child: CircularProgressIndicator());
             case PriceStatus.success:
@@ -47,15 +47,23 @@ class _PriceTrackerPageState extends State<PriceTrackerPage> {
                     height: 48.0,
                   ),
                   DropDownWidget(
-                      onValueChanged: (value) {
-                        symbolList = getSymbols(
-                            state.markets, value ?? state.markets.first.market);
-                        setState(() {});
+                      onValueChanged: (value) async {
+                        /// Here is a hech to overcome crash for duplicate values in DropDownWidget
+                        /// I rebuild the second dropdown with fresh data based on first
+                        /// dropdown selected item
+                        setState(() {
+                          symbolList = [];
+                        });
+                        await Future.delayed(const Duration(milliseconds: 10));
+                        setState(() {
+                          symbolList = getSymbols(state.markets,
+                              value ?? state.markets.first.market);
+                        });
                       },
                       title: 'Select a Market',
                       items: marketList),
                   const SizedBox(
-                    height: 20.0,
+                    height: 12.0,
                   ),
                   symbolList.isNotEmpty
                       ? DropDownWidget(
@@ -71,13 +79,13 @@ class _PriceTrackerPageState extends State<PriceTrackerPage> {
                         )
                       : const SizedBox.shrink(),
                   const SizedBox(
-                    height: 20.0,
+                    height: 32.0,
                   ),
                   BlocBuilder<PriceCubit, PriceState>(
                     builder: (context, state) {
                       return state.fetchType.isMarketFetch
                           ? const SizedBox.shrink()
-                          : state.price != null
+                          : state.priceStatus.isSuccess
                               ? Text(
                                   'Price ${state.price?.quote}',
                                   style: theme.textTheme.headline6
