@@ -84,13 +84,20 @@ class _PriceTrackerPageState extends State<PriceTrackerPage> {
                   ),
                   BlocBuilder<PriceBloc, PriceState>(
                     builder: (context, state) {
+                      final price = state.price;
                       return state.fetchType.isMarketFetch
                           ? const SizedBox.shrink()
                           : state.priceStatus.isSuccess
                               ? Text(
                                   'Price ${state.price?.quote}',
                                   style: theme.textTheme.headline6
-                                      ?.copyWith(fontWeight: FontWeight.w400),
+                                      ?.copyWith(fontWeight: FontWeight.w400)
+                                      .copyWith(
+                                          color: price!.bid > price.quote
+                                              ? Colors.red
+                                              : price.bid == price.quote
+                                                  ? Colors.grey
+                                                  : Colors.green),
                                 )
                               : const CircularProgressIndicator();
                     },
@@ -108,7 +115,6 @@ class _PriceTrackerPageState extends State<PriceTrackerPage> {
       'Select an Asset',
       ...markets
           .where((element) => element.market == disPlayName)
-          .toList()
           .map<String>((e) => e.symbol)
           .toList()
     ];
