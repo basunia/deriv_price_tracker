@@ -5,26 +5,32 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:price_tracker/main.dart';
+import 'package:price_tracker/app.dart';
+import 'package:price_tracker/service_locator.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  group('Widget test', () {
+    testWidgets('Price tracker smoke test', (WidgetTester tester) async {
+      // Build our app and trigger a frame.
+      final service = ServiceLocator();
+      await dotenv.load(fileName: ".env");
+      await tester.pumpWidget(PriceTrackerApp(repostory: service.repository));
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+      expect(find.text('Select a Market'), findsOneWidget);
+    });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    testWidgets('finds Select an Asset in the widget', (tester) async {
+      // Build our app and trigger a frame.
+      final service = ServiceLocator();
+      await dotenv.load(fileName: ".env");
+      await tester.pumpWidget(PriceTrackerApp(repostory: service.repository));
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+      await tester.tap(find.text('Select a Market'));
+      await tester.pump();
+
+      expect(find.text('Select an Asset'), findsOneWidget);
+    });
   });
 }

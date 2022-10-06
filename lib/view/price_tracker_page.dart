@@ -51,7 +51,7 @@ class _PriceTrackerPageState extends State<PriceTrackerPage> {
                   ),
                   DropDownWidget(
                       onValueChanged: (value) async {
-                        /// Here is a hech to overcome crash for duplicate values in DropDownWidget
+                        /// Here is a workaround to overcome crash for duplicate values in DropDownWidget
                         /// It rebuilds the second dropdown with fresh data based on first
                         /// dropdown selected item
                         setState(() {
