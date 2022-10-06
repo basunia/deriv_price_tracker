@@ -16,6 +16,7 @@ class _PriceTrackerPageState extends State<PriceTrackerPage> {
   List<String> symbolList = [];
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(title: const Text('Price tracker')),
       body: BlocConsumer<PriceCubit, PriceState>(
@@ -47,10 +48,9 @@ class _PriceTrackerPageState extends State<PriceTrackerPage> {
                   ),
                   DropDownWidget(
                       onValueChanged: (value) {
-                        setState(() {
-                          symbolList = getSymbols(state.markets,
-                              value ?? state.markets.first.market);
-                        });
+                        symbolList = getSymbols(
+                            state.markets, value ?? state.markets.first.market);
+                        setState(() {});
                       },
                       title: 'Select a Market',
                       items: marketList),
@@ -73,30 +73,19 @@ class _PriceTrackerPageState extends State<PriceTrackerPage> {
                   const SizedBox(
                     height: 20.0,
                   ),
-
                   BlocBuilder<PriceCubit, PriceState>(
                     builder: (context, state) {
-                      // Widget widget;
-                      // if (state.fetchType.isMarketFetch) {
-                      //   widget = const SizedBox.shrink();
-                      // } else {
-                      //   if (state.price != null) {
-                      //     widget = Text('Price ${state.price?.quote}');
-                      //   } else {
-                      //     widget = const CircularProgressIndicator();
-                      //   }
-                      // }
-                      // return widget;
                       return state.fetchType.isMarketFetch
                           ? const SizedBox.shrink()
                           : state.price != null
-                              ? Text('Price ${state.price?.quote}')
+                              ? Text(
+                                  'Price ${state.price?.quote}',
+                                  style: theme.textTheme.headline6
+                                      ?.copyWith(fontWeight: FontWeight.w400),
+                                )
                               : const CircularProgressIndicator();
                     },
                   ),
-                  // state.price != null
-                  //     ? Text('Price ${state.price?.quote}')
-                  //     : const SizedBox.shrink(),
                 ],
               );
           }
