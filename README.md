@@ -11,7 +11,7 @@ A flutter app that show realtime market price from [deriv](https://deriv.com/) a
     * Data layer (where raw data is generated from various sources like remote and local sources.
 
 ### Graphical represenatation of Very Good Architechture (VGA)
-<img src="ss/very_good_architecture.png" width="400">
+<img src="ss/very_good_architecture.png" width="500">
 
 Followed separation of concerns in terms of organizing the code.
 Separation of concern brings below benefits:
