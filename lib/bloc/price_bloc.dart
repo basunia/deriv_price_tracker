@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:deriv_api/deriv_api.dart';
-import 'package:deriv_repository/deriv_repository.dart';
+import 'package:price_tracker_repository/price_tracker_repository.dart';
 import 'package:price_tracker/bloc/price_event.dart';
 
 import '../widget.dart/internet_checker.dart';

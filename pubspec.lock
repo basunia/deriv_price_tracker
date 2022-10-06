@@ -127,13 +127,6 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
-  deriv_repository:
-    dependency: "direct main"
-    description:
-      path: "packages/deriv_repository"
-      relative: true
-    source: path
-    version: "0.0.1"
   dropdown_button2:
     dependency: "direct main"
     description:
@@ -286,6 +279,13 @@ packages:
     dependency: transitive
     description:
       path: "packages/price_tracker_api"
+      relative: true
+    source: path
+    version: "0.0.1"
+  price_tracker_repository:
+    dependency: "direct main"
+    description:
+      path: "packages/price_tracker_repository"
       relative: true
     source: path
     version: "0.0.1"

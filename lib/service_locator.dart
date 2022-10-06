@@ -1,5 +1,5 @@
 import 'package:deriv_api/deriv_api.dart';
-import 'package:deriv_repository/deriv_repository.dart';
+import 'package:price_tracker_repository/price_tracker_repository.dart';
 import 'package:price_tracker_api/price_tracker_api.dart';
 
 class ServiceLocator {

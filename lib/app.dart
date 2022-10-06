@@ -1,4 +1,4 @@
-import 'package:deriv_repository/deriv_repository.dart';
+import 'package:price_tracker_repository/price_tracker_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:price_tracker/bloc/price_bloc.dart';
