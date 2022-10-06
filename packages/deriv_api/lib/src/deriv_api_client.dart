@@ -22,8 +22,8 @@ class DomainNotFoundFailure implements Exception {
 }
 
 class DerivApiClient implements PriceTrackerApi {
-  DerivApiClient({WebSocketChannel? socketChannel})
-      : _socketChannel = socketChannel ?? webSocketChannel {
+  DerivApiClient({required WebSocketChannel socketChannel})
+      : _socketChannel = socketChannel {
     _broadCastStream = _socketChannel.stream.asBroadcastStream();
   }
 
