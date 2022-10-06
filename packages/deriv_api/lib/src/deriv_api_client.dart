@@ -35,13 +35,13 @@ class DerivApiClient implements PriceTrackerApi {
   @override
   void cancelMarketSubscription() {
     _socketChannel.sink.add(jsonEncode({"forget_all": "ticks"}));
-    // _marketSubscription?.cancel();
+    _marketSubscription?.cancel();
   }
 
   @override
   void cancelPriceSubscription() {
     _socketChannel.sink.add(jsonEncode({"forget_all": "ticks"}));
-    // _priceSubscription?.cancel();
+    _priceSubscription?.cancel();
   }
 
   @override
@@ -61,6 +61,8 @@ class DerivApiClient implements PriceTrackerApi {
 
         debugPrint(
             'size===================> ${marketList.length}, ${marketList.first.displayName}');
+      }, onError: (err) {
+        print('On market error ${err.toString()}');
       });
 
       return marketStreamController.stream;
@@ -85,6 +87,8 @@ class DerivApiClient implements PriceTrackerApi {
         priceStreamController.add(price);
 
         debugPrint('price===================> $price, ${price.symbol}');
+      }, onError: (err) {
+        print('On price error ${err.toString()}');
       });
       return priceStreamController.stream;
     } catch (e) {
