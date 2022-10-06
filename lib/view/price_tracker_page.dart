@@ -1,8 +1,8 @@
 import 'package:deriv_api/deriv_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:price_tracker/cubit/price_bloc.dart';
-import 'package:price_tracker/cubit/price_event.dart';
+import 'package:price_tracker/bloc/price_bloc.dart';
+import 'package:price_tracker/bloc/price_event.dart';
 import 'package:price_tracker/widget.dart/custom_error_widget.dart';
 import 'package:price_tracker/widget.dart/drop_down_widget.dart';
 
@@ -17,7 +17,7 @@ class _PriceTrackerPageState extends State<PriceTrackerPage> {
   List<String> symbolList = [];
 
   void _fetchMarket() {
-    context.read<PriceCubit>().add(MarketFetched());
+    context.read<PriceBloc>().add(MarketFetched());
   }
 
   @override
@@ -25,7 +25,7 @@ class _PriceTrackerPageState extends State<PriceTrackerPage> {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(title: const Text('Price tracker')),
-      body: BlocConsumer<PriceCubit, PriceState>(
+      body: BlocConsumer<PriceBloc, PriceState>(
         listener: (context, state) {},
         buildWhen: (prev, curr) => curr.fetchType.isMarketFetch,
         builder: (context, state) {
@@ -44,15 +44,7 @@ class _PriceTrackerPageState extends State<PriceTrackerPage> {
                   state.markets.map((e) => e.market).toSet().toList();
               final marketList = ['Select a Market', ...markets];
 
-              // final marketList = state.markets.map((e) => e.market).toList();
-
-              // final symbolList = state.markets.map((e) => e.symbol).toList();
-              // final symbolList = state.markets.where((element) => element.symbol == ,)
-
-              // symbolList =
-              //     getSymbols(state.markets, state.markets.first.displayName);
               return Column(
-                // mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   const SizedBox(
                     height: 48.0,
@@ -81,9 +73,7 @@ class _PriceTrackerPageState extends State<PriceTrackerPage> {
                           onValueChanged: (value) {
                             setState(() {});
                             if (symbolList.first == value) return;
-                            context
-                                .read<PriceCubit>()
-                                .add(PriceFetched(value!));
+                            context.read<PriceBloc>().add(PriceFetched(value!));
                           },
                           title: 'Select an Asset',
                           items: symbolList,
@@ -92,7 +82,7 @@ class _PriceTrackerPageState extends State<PriceTrackerPage> {
                   const SizedBox(
                     height: 58.0,
                   ),
-                  BlocBuilder<PriceCubit, PriceState>(
+                  BlocBuilder<PriceBloc, PriceState>(
                     builder: (context, state) {
                       return state.fetchType.isMarketFetch
                           ? const SizedBox.shrink()

@@ -2,14 +2,14 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:deriv_api/deriv_api.dart';
 import 'package:deriv_repository/deriv_repository.dart';
-import 'package:price_tracker/cubit/price_event.dart';
+import 'package:price_tracker/bloc/price_event.dart';
 
 import '../widget.dart/internet_checker.dart';
 
 part 'price_state.dart';
 
-class PriceCubit extends Bloc<PriceEvent, PriceState> {
-  PriceCubit({required PriceTrackerRepostory repostory})
+class PriceBloc extends Bloc<PriceEvent, PriceState> {
+  PriceBloc({required PriceTrackerRepostory repostory})
       : _repository = repostory,
         super(const PriceState()) {
     on<MarketFetched>(onMarketFetched);
@@ -41,6 +41,7 @@ class PriceCubit extends Bloc<PriceEvent, PriceState> {
       });
     } catch (e) {
       print(e.toString());
+      rethrow;
     }
   }
 
@@ -66,6 +67,7 @@ class PriceCubit extends Bloc<PriceEvent, PriceState> {
               status: PriceStatus.failure, fetchType: FetchType.priceFetch));
     } catch (e) {
       print(e.toString());
+      rethrow;
     }
   }
 }

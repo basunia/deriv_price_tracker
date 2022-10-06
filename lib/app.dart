@@ -1,8 +1,8 @@
 import 'package:deriv_repository/deriv_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:price_tracker/cubit/price_bloc.dart';
-import 'package:price_tracker/cubit/price_event.dart';
+import 'package:price_tracker/bloc/price_bloc.dart';
+import 'package:price_tracker/bloc/price_event.dart';
 import 'package:price_tracker/view/price_tracker_page.dart';
 
 class PriceTrackerApp extends StatelessWidget {
@@ -18,7 +18,7 @@ class PriceTrackerApp extends StatelessWidget {
       value: _repostory,
       child: BlocProvider(
         create: (context) =>
-            PriceCubit(repostory: context.read<PriceTrackerRepostory>())
+            PriceBloc(repostory: context.read<PriceTrackerRepostory>())
               ..add(MarketFetched()),
         child: const PriceTrackerAppView(),
       ),
