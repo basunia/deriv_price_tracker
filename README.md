@@ -1,6 +1,6 @@
-# price_tracker
+# deriv_price_tracker
 
-A new Flutter project.
+A flutter app that show realtime market price from [deriv](https://deriv.com/) api service.
 
 ## Getting Started
 
