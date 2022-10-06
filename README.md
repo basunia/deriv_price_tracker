@@ -3,12 +3,15 @@
 A flutter app that show realtime market price from [deriv](https://deriv.com/) api service.
 
 ### App Architecture summary
-- Used clean architecture for structuring the app.
+- Used [Very Good Architecture](https://verygood.ventures/blog/very-good-flutter-architecture) for structuring the app.
 - There are three layers in the app
 
     * Application/Feature layer (where user interacts, app UI and widget, where bloc resides and handles business logic)
     * Domain layer (where generate business value, aggregate data from data layer and provide data to business layer.
     * Data layer (where raw data is generated from various sources like remote and local sources.
+
+### Graphical represenatation of Very Good Architechture (VGA)
+<img src="ss/very_good_architecture.png" width="400">
 
 Followed separation of concerns in terms of organizing the code.
 Separation of concern brings below benefits:
@@ -22,8 +25,8 @@ The first two layers reside in the main app. For the other two layers, two separ
      
      1. main app - Application/Feature layer
      2. price_tracker_repository - Domain layer
-     3  price_tracker_api -Domain layer (this an interface, this will implement by the concrete api servie like `derive_api`
-     3. deriv_api  - Data Layer (concret implementation for `derive_api`
+     3  price_tracker_api -Domain layer (this an interface, this will implement by the concrete api servie like derive_api
+     3. deriv_api  - Data Layer (concret implementation for derive_api
      
                                                                                                                                                   
                                                                                                                                                   
