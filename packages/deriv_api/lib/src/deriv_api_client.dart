@@ -34,13 +34,14 @@ class DerivApiClient implements PriceTrackerApi {
 
   @override
   void cancelMarketSubscription() {
-    _marketSubscription?.cancel();
+    _socketChannel.sink.add(jsonEncode({"forget_all": "ticks"}));
+    // _marketSubscription?.cancel();
   }
 
   @override
   void cancelPriceSubscription() {
     _socketChannel.sink.add(jsonEncode({"forget_all": "ticks"}));
-    _priceSubscription?.cancel();
+    // _priceSubscription?.cancel();
   }
 
   @override

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:price_tracker/cubit/price_bloc.dart';
 import 'package:price_tracker/cubit/price_event.dart';
+import 'package:price_tracker/widget.dart/custom_error_widget.dart';
 import 'package:price_tracker/widget.dart/drop_down_widget.dart';
 
 class PriceTrackerPage extends StatefulWidget {
@@ -14,6 +15,11 @@ class PriceTrackerPage extends StatefulWidget {
 
 class _PriceTrackerPageState extends State<PriceTrackerPage> {
   List<String> symbolList = [];
+
+  void _fetchMarket() {
+    context.read<PriceCubit>().add(MarketFetched());
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -24,7 +30,12 @@ class _PriceTrackerPageState extends State<PriceTrackerPage> {
         buildWhen: (prev, curr) => curr.fetchType.isMarketFetch,
         builder: (context, state) {
           switch (state.priceStatus) {
-            // case PriceStatus.initial:
+            case PriceStatus.noConnection:
+              return CustomErrorWidget(
+                  onRefresh: _fetchMarket,
+                  title: 'No connection',
+                  subTitle: 'Please check your network connection.',
+                  actionText: 'Retry');
             case PriceStatus.loading:
               return const Center(child: CircularProgressIndicator());
             case PriceStatus.success:
@@ -49,7 +60,7 @@ class _PriceTrackerPageState extends State<PriceTrackerPage> {
                   DropDownWidget(
                       onValueChanged: (value) async {
                         /// Here is a hech to overcome crash for duplicate values in DropDownWidget
-                        /// I rebuild the second dropdown with fresh data based on first
+                        /// It rebuilds the second dropdown with fresh data based on first
                         /// dropdown selected item
                         setState(() {
                           symbolList = [];
@@ -63,7 +74,7 @@ class _PriceTrackerPageState extends State<PriceTrackerPage> {
                       title: 'Select a Market',
                       items: marketList),
                   const SizedBox(
-                    height: 12.0,
+                    height: 22.0,
                   ),
                   symbolList.isNotEmpty
                       ? DropDownWidget(
@@ -79,7 +90,7 @@ class _PriceTrackerPageState extends State<PriceTrackerPage> {
                         )
                       : const SizedBox.shrink(),
                   const SizedBox(
-                    height: 32.0,
+                    height: 58.0,
                   ),
                   BlocBuilder<PriceCubit, PriceState>(
                     builder: (context, state) {

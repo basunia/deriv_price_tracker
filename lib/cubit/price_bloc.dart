@@ -4,6 +4,8 @@ import 'package:deriv_api/deriv_api.dart';
 import 'package:deriv_repository/deriv_repository.dart';
 import 'package:price_tracker/cubit/price_event.dart';
 
+import '../widget.dart/internet_checker.dart';
+
 part 'price_state.dart';
 
 class PriceCubit extends Bloc<PriceEvent, PriceState> {
@@ -20,7 +22,11 @@ class PriceCubit extends Bloc<PriceEvent, PriceState> {
     emit(state.copyWith(
         status: PriceStatus.loading, fetchType: FetchType.marketFetch));
     try {
-      // if (state.priceStatus.isInitial) {
+      if (!(await isInternetAvailable)) {
+        emit(state.copyWith(
+            status: PriceStatus.noConnection,
+            fetchType: FetchType.marketFetch));
+      }
       await emit.forEach(_repository.getMarketSymbol(),
           onData: (List<Market> markets) {
         _repository.cancelMarketSubscription();
@@ -33,8 +39,6 @@ class PriceCubit extends Bloc<PriceEvent, PriceState> {
         return state.copyWith(
             status: PriceStatus.failure, fetchType: FetchType.marketFetch);
       });
-      // }
-      // _repository.getMarketSymbol();
     } catch (e) {
       print(e.toString());
     }
@@ -44,10 +48,15 @@ class PriceCubit extends Bloc<PriceEvent, PriceState> {
       PriceFetched event, Emitter<PriceState> emit) async {
     // cancel previous subscription if any
     _repository.cancelPriceSubscription();
+
     emit(state.copyWith(
         status: PriceStatus.loading, fetchType: FetchType.priceFetch));
     try {
-      // if (state.priceStatus.isInitial) {
+      if (!(await isInternetAvailable)) {
+        emit(state.copyWith(
+            status: PriceStatus.noConnection,
+            fetchType: FetchType.marketFetch));
+      }
       await emit.forEach(_repository.getPrice(marketSymbol: event.marketSymbol),
           onData: (Price price) => state.copyWith(
               status: PriceStatus.success,
@@ -55,8 +64,6 @@ class PriceCubit extends Bloc<PriceEvent, PriceState> {
               fetchType: FetchType.priceFetch),
           onError: (ob, st) => state.copyWith(
               status: PriceStatus.failure, fetchType: FetchType.priceFetch));
-      // }
-      // _repository.getMarketSymbol();
     } catch (e) {
       print(e.toString());
     }
